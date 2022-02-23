@@ -49,7 +49,7 @@ if errors:
     for section, message in errors.items():
         print(f'Error getting {section}: {message}')
 
-send_html_email(f"{name.capitalize()}'s daily email", content)
+send_html_email(subject=f"{name.capitalize()}'s daily email", content=content)
 
 print('Sent email:')
 print(content)
