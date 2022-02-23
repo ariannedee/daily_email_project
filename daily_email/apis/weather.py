@@ -3,8 +3,6 @@ from datetime import datetime
 import requests
 from environs import Env
 
-from daily_email.helpers import c_to_f
-
 env = Env()
 env.read_env()
 
@@ -52,6 +50,11 @@ def get_weather_message():
 🌙 {datetime.strftime(sunset, '%-I:%M %p')}
 """
     return message.strip()
+
+
+def c_to_f(temp_c, decimals=1):
+    temp_f = (temp_c * 9 / 5) + 32
+    return round(temp_f, decimals)
 
 
 if __name__ == '__main__':
