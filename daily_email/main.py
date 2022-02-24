@@ -3,12 +3,12 @@
 
 import sys
 
-from daily_email.reminders import get_reminders_html
 from send_email import send_html_email
 from apis.joke import get_joke
 from apis.quote import get_quote
 from apis.sports import get_next_game
 from apis.weather import get_weather_message
+from reminders import get_reminders_html
 
 args = sys.argv
 assert len(args) == 2, 'You must provide a "name" argument'
@@ -19,38 +19,23 @@ greeting = f"<h1>Good morning, {name.capitalize()} 👋</h1>"
 
 content_list = [greeting]
 errors = {}
-try:
-    weather = f"<h2>Today's weather ☁️</h2><p>{get_weather_message()}</p>"
-    content_list.append(weather)
-except OSError as e:
-    errors['weather'] = e
+api_content = [
+    {'name': 'weather', 'heading': "Today's weather ⛅️", 'function': get_weather_message},
+    {'name': 'joke', 'heading': "Joke of the day 🤣", 'function': get_joke},
+    {'name': 'quote', 'heading': "Quote of the day 💬", 'function': get_quote},
+    {'name': 'nba', 'heading': "Next game 🏀", 'function': get_next_game},
+    {'name': 'reminders', 'heading': "Remember to ✅", 'function': get_reminders_html},
+]
 
-try:
-    joke = f"<h2>Joke of the day 🤣</h2><p>{get_joke()}</p>"
-    content_list.append(joke)
-except OSError as e:
-    errors['joke'] = e
-
-try:
-    quote = f"<h2>Quote of the day 💬</h2><p>{get_quote()}</p>"
-    content_list.append(quote)
-except OSError as e:
-    errors['quote'] = e
-
-try:
-    next_game = f"<h2>Next game 🏀</h2><p>{get_next_game()}</p>"
-    content_list.append(next_game)
-except OSError as e:
-    errors['nba'] = e
-
-try:
-    reminders = f"<h2>Remember to:</h2><p>{get_reminders_html()}</p>"
-    content_list.append(reminders)
-except OSError as e:
-    errors['reminders'] = e
+for content_dict in api_content:
+    try:
+        content = content_dict['function']()
+        html_content = f"<h2>{content_dict['heading']}</h2><p>{content}</p>".replace('\n', '<br>')
+        content_list.append(html_content)
+    except OSError as e:
+        errors[content_dict['name']] = e
 
 content = ''.join(content_list)
-content = content.replace('\n', '<br>')
 
 if errors:
     for section, message in errors.items():
