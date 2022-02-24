@@ -3,6 +3,7 @@
 
 import sys
 
+from daily_email.reminders import get_reminders_html
 from send_email import send_html_email
 from apis.joke import get_joke
 from apis.quote import get_quote
@@ -41,6 +42,12 @@ try:
     content_list.append(next_game)
 except OSError as e:
     errors['nba'] = e
+
+try:
+    reminders = f"<h2>Remember to:</h2><p>{get_reminders_html()}</p>"
+    content_list.append(reminders)
+except OSError as e:
+    errors['reminders'] = e
 
 content = ''.join(content_list)
 content = content.replace('\n', '<br>')

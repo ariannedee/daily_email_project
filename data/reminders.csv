@@ -1,0 +1,6 @@
+Item,Mo,Tu,We,Th,Fr,Sa,Su
+Go for a walk,1,0,1,0,1,0,1
+Go for a run,0,1,0,1,0,1,0
+Drink some water,1,1,1,1,1,1,1
+Stretch,1,1,1,1,1,1,1
+Make dinner,0,0,0,0,0,1,1
