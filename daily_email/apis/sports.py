@@ -21,6 +21,9 @@ def get_next_game():
     games = response.json()['data']
     games.sort(key=lambda g: g['date'])
 
+    if len(games) == 0:
+        return "No upcoming games"
+
     next_game = games[0]
 
     home_team = next_game['home_team']['full_name']
