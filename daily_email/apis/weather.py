@@ -1,4 +1,5 @@
-from datetime import datetime
+from datetime import datetime, timezone
+from zoneinfo import ZoneInfo
 
 import requests
 from environs import Env
@@ -40,9 +41,10 @@ def get_weather_message():
     temp_lo_c = weather['temp']['min']
     temp_lo_f = c_to_f(temp_lo_c)
 
-    sunrise = datetime.fromtimestamp(weather['sunrise'])
-    sunset = datetime.fromtimestamp(weather['sunset'])
-
+    sunrise_utc = datetime.fromtimestamp(weather['sunrise'], tz=timezone.utc)
+    sunrise = sunrise_utc.astimezone(ZoneInfo("America/Vancouver"))
+    sunset_utc = datetime.fromtimestamp(weather['sunset'], tz=timezone.utc)
+    sunset = sunset_utc.astimezone(ZoneInfo("America/Vancouver"))
     condition = weather['weather'][0]['description']
     deg = '°'
     message = f"""<span>Today there will be {condition}.
