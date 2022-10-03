@@ -26,12 +26,21 @@ def get_weather():
 
     response = requests.request("GET", url, headers=headers, params=params)
 
-    weather = response.json()['daily'][0]
+    data = response.json()
+    try:
+        weather = data['daily'][0]
+    except KeyError:
+        from pprint import pprint
+        pprint(data)
+        return f"Error getting weather: {list(data.keys())}"
+
     return weather
 
 
 def get_weather_message():
     weather = get_weather()
+    if isinstance(weather, str):
+        return weather
     temp_hi_c = weather['temp']['max']
     temp_hi_f = c_to_f(temp_hi_c)
     temp_lo_c = weather['temp']['min']
