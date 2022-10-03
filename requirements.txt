@@ -1,2 +1,3 @@
 environs==9.5.0  # https://github.com/sloria/environs
 requests==2.27.1  # https://docs.python-requests.org/en/latest/
+backports.zoneinfo;python_version<"3.9"
