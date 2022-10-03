@@ -27,13 +27,7 @@ def get_weather():
     response = requests.request("GET", url, headers=headers, params=params)
 
     data = response.json()
-    try:
-        weather = data['daily'][0]
-    except KeyError:
-        from pprint import pprint
-        pprint(data)
-        return f"Error getting weather: {list(data.keys())}"
-
+    weather = data['daily'][0]
     return weather
 
 

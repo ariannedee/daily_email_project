@@ -32,14 +32,16 @@ for content_dict in api_content:
         content = content_dict['function']()
         html_content = f"<h2>{content_dict['heading']}</h2><p>{content}</p>".replace('\n', '<br>')
         content_list.append(html_content)
-    except OSError as e:
+    except Exception as e:
         errors[content_dict['name']] = e
 
 content = ''.join(content_list)
-
+error_msgs = ''
 if errors:
     for section, message in errors.items():
-        print(f'Error getting {section}: {message}')
+        error_msgs += f'Error getting {section}: {repr(message)}\n'
+    print(error_msgs)
+    content += error_msgs
 
 send_html_email(subject=f"{name.capitalize()}'s daily email", content=content)
 
