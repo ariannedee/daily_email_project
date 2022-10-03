@@ -51,8 +51,8 @@ def get_weather_message():
     condition = weather['weather'][0]['description']
     deg = '°'
     message = f"""<span>Today there will be {condition}.
-<strong>High:</strong> {temp_hi_c:.1f} {deg}C ({temp_hi_f} {deg}F)
-<strong>Low:</strong> {temp_lo_c:.1f} {deg}C ({temp_lo_f} {deg}F)
+<strong>High:</strong> {round(temp_hi_c)}{deg}C ({round(temp_hi_f)}{deg}F)
+<strong>Low:</strong> {round(temp_lo_c)}{deg}C ({round(temp_lo_f)}{deg}F)
 
 ☀️ {datetime.strftime(sunrise, '%-H:%M %p')}
 🌙 {datetime.strftime(sunset, '%-I:%M %p')}
