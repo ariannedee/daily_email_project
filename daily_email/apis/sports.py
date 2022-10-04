@@ -70,7 +70,7 @@ def get_game_messages():
         return "No upcoming games"
 
     time_utc = datetime.fromisoformat(next_game["game"]["startTimeUTC"].strip("Z")).replace(tzinfo=timezone.utc)
-    time_str = time_utc.astimezone(tz).strftime("%-I:%M %p")
+    time_str = time_utc.astimezone(tz).strftime("%-I:%M %p %Z")
 
     next_game_day_diff = (next_game["date"] - today).days
     if next_game_day_diff == 0:
