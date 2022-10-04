@@ -11,6 +11,7 @@ env = Env()
 env.read_env()
 
 coordinates = (env.float('LATITUDE'), env.float('LONGITUDE'))
+tz = ZoneInfo(env.str("TIMEZONE", "America/Vancouver"))
 
 
 def get_weather():
@@ -45,9 +46,9 @@ def get_weather_message():
     temp_lo_f = c_to_f(temp_lo_c)
 
     sunrise_utc = datetime.fromtimestamp(weather['sunrise'], tz=timezone.utc)
-    sunrise = sunrise_utc.astimezone(ZoneInfo("America/Vancouver"))
+    sunrise = sunrise_utc.astimezone(tz)
     sunset_utc = datetime.fromtimestamp(weather['sunset'], tz=timezone.utc)
-    sunset = sunset_utc.astimezone(ZoneInfo("America/Vancouver"))
+    sunset = sunset_utc.astimezone(tz)
     condition = weather['weather'][0]['description']
     deg = '°'
     message = f"""<span>Today there will be {condition}.

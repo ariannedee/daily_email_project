@@ -12,7 +12,7 @@ env = Env()
 env.read_env()
 
 
-tz = ZoneInfo(env.str("TZ", "America/Vancouver"))
+tz = ZoneInfo(env.str("TIMEZONE", "America/Vancouver"))
 my_team = env.str("TEAM", "TOR")
 
 now = datetime.now(tz=tz)
