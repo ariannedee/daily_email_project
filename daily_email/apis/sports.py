@@ -1,11 +1,20 @@
-from datetime import datetime, timezone
 try:
     from zoneinfo import ZoneInfo
 except ImportError:
     from backports.zoneinfo import ZoneInfo
-import requests
 
-tz = ZoneInfo("America/Vancouver")
+from datetime import datetime, timezone
+
+import requests
+from environs import Env
+
+env = Env()
+env.read_env()
+
+
+tz = ZoneInfo(env.str("TZ", "America/Vancouver"))
+my_team = env.str("TEAM", "TOR")
+
 now = datetime.now(tz=tz)
 today = now.date()
 season = today.year
@@ -15,10 +24,9 @@ else:
     season = today.year - 1
 
 url = f"https://data.nba.net/prod/v2/{season}/schedule.json"
-my_team = 'TOR'
 
 
-def get_next_game():
+def get_game_messages():
     headers = {
         'content-type': 'application/json'
     }
@@ -72,16 +80,14 @@ def get_next_game():
     else:
         date_string = f'in {next_game_day_diff} days'
 
-    message = f"""<h2>Next game</h2> - {date_string} @ {time_str}
-<strong>Home:</strong> {next_game["homeTeam"]}
-<strong>Away:</strong> {next_game["awayTeam"]}
+    message = f"""<strong>Next game</strong> - {date_string} @ {time_str}
+{next_game["awayTeam"]} at {next_game["homeTeam"]}
 """
-
     team_stat = last_game["game"]["hTeam"] if last_game["isHome"] else last_game["game"]["vTeam"]
     other_team = last_game["awayTeam"] if last_game["isHome"] else last_game["homeTeam"]
     other_team_stat = last_game["game"]["vTeam"] if last_game["isHome"] else last_game["game"]["hTeam"]
     last_game = f"""
-<h2>Last game</h2> - {last_game["date"].strftime("%A, %B %-d")}
+<strong>Last game</strong> - {last_game["date"].strftime("%A, %B %-d")}
 {my_team} {team_stat["score"]} - {other_team} {other_team_stat["score"]}
 {team_stat["win"]} - {team_stat["loss"]}
 """
@@ -89,4 +95,4 @@ def get_next_game():
 
 
 if __name__ == '__main__':
-    print(get_next_game())
+    print(get_game_messages())

@@ -6,7 +6,7 @@ import sys
 from send_email import send_html_email
 from apis.joke import get_joke
 from apis.quote import get_quote
-from apis.sports import get_next_game
+from apis.sports import get_game_messages
 from apis.weather import get_weather_message
 from reminders import get_reminders_html
 
@@ -23,7 +23,7 @@ api_content = [
     {'name': 'weather', 'heading': "Today's weather ⛅️", 'function': get_weather_message},
     {'name': 'joke', 'heading': "Joke of the day 🤣", 'function': get_joke},
     {'name': 'quote', 'heading': "Quote of the day 💬", 'function': get_quote},
-    {'name': 'nba', 'heading': "Next game 🏀", 'function': get_next_game},
+    {'name': 'nba', 'heading': "NBA 🏀", 'function': get_game_messages},
     {'name': 'reminders', 'heading': "Remember to ✅", 'function': get_reminders_html},
 ]
 
