@@ -1,3 +1,2 @@
-environs==9.5.0   # https://github.com/sloria/environs
-pytest            # https://docs.pytest.org/en/7.4.x/
+environs==9.5.0  # https://github.com/sloria/environs
 requests==2.31.0  # https://docs.python-requests.org/en/latest/
