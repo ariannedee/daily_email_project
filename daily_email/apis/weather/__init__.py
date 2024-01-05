@@ -1,1 +1,0 @@
-from .weather import get_message
