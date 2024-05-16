@@ -15,8 +15,6 @@ SENDER_NAME = env('SENDER_NAME', default='Daily email')
 RECEIVER_EMAIL = env('RECEIVER_EMAIL', default=SENDER_EMAIL)
 RECEIVER_NAME = env('RECEIVER_NAME', default='Me')
 
-assert PASSWORD, f'You must save your password in the GMAIL_PWD environment variable'
-
 
 def send_text_email(subject, content):
     message = f"""\
@@ -27,12 +25,15 @@ Subject: {subject}
 {content}
 """
     print(message)
-    smtpObj = smtplib.SMTP('smtp.gmail.com', 587)
-    smtpObj.ehlo()
-    smtpObj.starttls()
-    smtpObj.login(SENDER_EMAIL, PASSWORD)
-    smtpObj.sendmail(SENDER_EMAIL, RECEIVER_EMAIL, message)
-    smtpObj.quit()
+    if not SENDER_EMAIL or not PASSWORD:
+        raise ValueError("Must set SENDER_EMAIL and PASSWORD in .env to send an email.")
+    else:
+        smtpObj = smtplib.SMTP('smtp.gmail.com', 587)
+        smtpObj.ehlo()
+        smtpObj.starttls()
+        smtpObj.login(SENDER_EMAIL, PASSWORD)
+        smtpObj.sendmail(SENDER_EMAIL, RECEIVER_EMAIL, message)
+        smtpObj.quit()
 
 
 def send_html_email(subject, content):
