@@ -25,8 +25,6 @@ sunset_str = data['daily']['sunset'][0]
 sunrise = sunrise_str.split('T')[1]
 sunset = sunset_str.split('T')[1]
 
-print(__name__)
-
 if __name__ == '__main__':
     print(data)
     print(temp_f_high)
