@@ -24,9 +24,8 @@ Subject: {subject}
 
 {content}
 """
-    print(message)
     if not SENDER_EMAIL or not PASSWORD:
-        raise ValueError("Must set SENDER_EMAIL and PASSWORD in .env to send an email.")
+        print(message)
     else:
         smtpObj = smtplib.SMTP('smtp.gmail.com', 587)
         smtpObj.ehlo()
