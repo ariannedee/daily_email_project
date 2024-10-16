@@ -1,15 +1,12 @@
 import sys
 
-from apis.weather import (
-    sunrise,
-    sunset,
-    temp_f_high as tfh,
-    temp_f_low as tfl,
-    weather,
-)
+from apis.open_meteo import Weather
 from helpers import f_to_c
 from send_email import send_text_email
 
+weather = Weather(celsius=False)
+print(weather)
+print(type(weather))
 
 if len(sys.argv) == 1:
     name = 'arianne'
@@ -19,14 +16,14 @@ else:
 with open('reminders.txt') as file:
     reminders = file.readlines()
 
+temp_high = weather.temp_high
+temp_low = weather.temp_low
+
 greeting = f"""Good morning, {name.title()}!
-Today will be {weather.lower()}.
+Today will be {weather.condition.lower()}.
 
-High of {tfh:.0f}°F ({f_to_c(tfh):.0f}°C)
-Low of {tfl:.0f}°F ({f_to_c(tfl):.0f}°C)
-
-Sunrise: {sunrise}
-Sunset: {sunset}
+High of {temp_high :.0f}°F ({f_to_c(temp_high):.0f}°C)
+Low of {temp_low :.0f}°F ({f_to_c(temp_low):.0f}°C)
 
 Remember to:
 {''.join([f"- {reminder}" for reminder in reminders])}
