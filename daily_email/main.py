@@ -1,11 +1,10 @@
-from send_email import send_text_email
-
+import sys
 from pprint import pprint
 
 import requests
-from weather_codes import weather_from_code
 
-import sys
+from send_email import send_text_email
+from weather_codes import weather_from_code
 
 DEBUG = False
 
