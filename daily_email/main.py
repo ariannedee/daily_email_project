@@ -2,7 +2,7 @@ import sys
 
 from helpers import c_to_f
 from weather_api import high_temp_c, low_temp_c, weather
-from send_email import send_text_email
+from send_email import send_html_email
 
 
 def main():
@@ -25,7 +25,7 @@ def main():
         for reminder in file.readlines():
             message += f"- {reminder}"
 
-    send_text_email(subject='Daily email', content=message)
+    send_html_email(subject='Daily email', content=message)
 
 
 if __name__ == '__main__':
