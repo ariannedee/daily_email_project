@@ -2,7 +2,8 @@ from pprint import pprint
 
 import requests
 
-from daily_email.weather_codes import weather_from_code
+from weather_codes import weather_from_code
+
 
 DEBUG = False
 base_url = f'https://api.open-meteo.com/v1/forecast'
