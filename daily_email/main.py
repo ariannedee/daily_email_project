@@ -1,18 +1,10 @@
-from send_email import send_text_email
-
-import random
 import sys
 
 import requests
 
+from helpers import c_to_f
+from send_email import send_text_email
 from weather_codes import weather_from_code
-
-
-def c_to_f(temp):
-    return round((temp * 9 / 5) + 32)
-
-assert c_to_f(0) == 32
-assert c_to_f(36.5) == 98
 
 args = sys.argv
 
