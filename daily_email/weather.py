@@ -1,3 +1,5 @@
+from pprint import pprint
+
 import requests
 
 from weather_codes import weather_from_code
@@ -20,3 +22,6 @@ temp_hi = today['temperature_2m_max'][0]
 temp_lo = today['temperature_2m_min'][0]
 code = today['weathercode'][0]
 condition = weather_from_code[code]
+
+if __name__ == '__main__':
+    pprint(data)
