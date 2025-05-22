@@ -3,17 +3,17 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-# from environs import Env
+from environs import Env
 
 
-# env = Env()
-# env.read_env()
-SENDER_EMAIL = 'test@gmail.com' # env('SENDER_EMAIL')
-PASSWORD = '' # env('GMAIL_PWD')
+env = Env()
+env.read_env()
+SENDER_EMAIL = env('SENDER_EMAIL', default='test@gmail.com')
+PASSWORD = env('GMAIL_PWD')
 
-SENDER_NAME = 'Python email bot' # env('SENDER_NAME', default='Daily email')
-RECEIVER_EMAIL = '' # env('RECEIVER_EMAIL', default=SENDER_EMAIL)
-RECEIVER_NAME = 'Arianne' # env('RECEIVER_NAME', default='Me')
+SENDER_NAME = env('SENDER_NAME', default='Daily email')
+RECEIVER_EMAIL = env('RECEIVER_EMAIL', default=SENDER_EMAIL)
+RECEIVER_NAME = env('RECEIVER_NAME', default='Me')
 
 
 def send_text_email(subject, content):
