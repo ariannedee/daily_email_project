@@ -2,11 +2,7 @@ import sys
 
 from helpers import c_to_f
 from send_email import send_text_email
-from weather import (
-    condition,
-    temp_hi as high_temp,
-    temp_lo as low_temp,
-)
+from weather import Weather
 
 args = sys.argv
 
@@ -15,12 +11,13 @@ if len(args) > 1:
 else:
     name = input("Name: ").strip().title()
 
+my_weather = Weather(lat=49.2497, lon=-123.1193, tz='America/Los_Angeles')
 content = f"""Good morning, {name}!
 
-Today's condition: {condition.lower()}.
+Today's condition: {my_weather.condition.lower()}.
 
-High: {high_temp}°C ({c_to_f(high_temp)}°F)
-Low: {low_temp}°C ({c_to_f(low_temp)}°F)
+High: {my_weather.high_temp}°C ({c_to_f(my_weather.high_temp)}°F)
+Low: {my_weather.low_temp}°C ({c_to_f(my_weather.low_temp)}°F)
 
 Remember to:
 """
