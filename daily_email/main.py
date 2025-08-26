@@ -1,14 +1,14 @@
-from send_email import send_text_email
-from environs import Env
-
 import sys
 
 import requests
+from environs import Env
 
+from send_email import send_text_email
 from weather_codes import weather_from_code
 
 env = Env()
 env.read_env()
+
 
 def c_to_f(temp_c):
     return (temp_c * 9 / 5) + 32
@@ -43,7 +43,6 @@ if response.status_code != 200:
     errors.append(f"Error getting weather data from {WEATHER_URL} with {params}\n{response.url}")
 else:
     data = response.json()
-    daily = data["daily"]
 
     weather_code = data["daily"]["weather_code"][0]
     weather = weather_from_code.get(weather_code, f"unknown ({weather_code})").lower()
