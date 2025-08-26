@@ -12,7 +12,7 @@ except ImportError:
     from errors import APIError
 
 
-WEATHER_URL = "https://api.open-meteo.com/v1/forecastsd"
+WEATHER_URL = "https://api.open-meteo.com/v1/forecast"
 
 
 def get_weather_data(latitude, longitude):
@@ -37,9 +37,18 @@ def get_weather_data(latitude, longitude):
     temp_max = data["daily"]["temperature_2m_max"][0]
     temp_min = data["daily"]["temperature_2m_min"][0]
 
-    return weather, temp_max, temp_min  # TODO: classes
+    return WeatherData(weather, temp_max, temp_min)
+
+
+class WeatherData:
+    def __init__(self, weather, temp_max, temp_min):
+        self.temp_low = temp_min
+        self.temp_high = temp_max
+        self.weather = weather
 
 
 if __name__ == "__main__":
-    weather, temp_high, temp_min = get_weather_data(0, 0)
-    print(f"{weather=}\n{temp_high=}\n{temp_min=}")
+    wd = get_weather_data(49, -100)
+    print(wd.weather)
+    print(wd.temp_high)
+    print(wd.temp_low)

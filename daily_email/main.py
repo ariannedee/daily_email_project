@@ -23,11 +23,13 @@ def main(name):
     lon = env.float('LONGITUDE', default=-123)
 
     try:
-        weather, temp_c_high, temp_c_low = get_weather_data(lat, lon)
+        data = get_weather_data(lat, lon)
     except APIError as e:
         errors.append(str(e))
     else:
-        content += f"""\nToday is going to be {weather}.
+        temp_c_high = data.temp_high
+        temp_c_low = data.temp_low
+        content += f"""\nToday is going to be {data.weather}.
     
 High: {temp_c_high :.0f}°C ({c_to_f(temp_c_high):.0f}°F)
 Low: {temp_c_low :.0f}°C ({c_to_f(temp_c_low):.0f}°F)
