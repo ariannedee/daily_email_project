@@ -2,7 +2,7 @@ import sys
 
 from environs import Env
 
-from apis.weather import get_weather_data
+from apis.weather import APIError, get_weather_data
 from send_email import send_text_email
 
 env = Env()
@@ -21,11 +21,12 @@ def main(name):
     lat = env.float('LATITUDE', default=49)
     lon = env.float('LONGITUDE', default=-123)
 
-    weather, temp_c_high, temp_c_low = get_weather_data(lat, lon)
-
-    # Content weather
-    # TODO: handle exceptions
-    content += f"""\nToday is going to be {weather}.
+    try:
+        weather, temp_c_high, temp_c_low = get_weather_data(lat, lon)
+    except APIError as e:
+        errors.append(str(e))
+    else:
+        content += f"""\nToday is going to be {weather}.
     
 High: {temp_c_high :.0f}°C ({c_to_f(temp_c_high):.0f}°F)
 Low: {temp_c_low :.0f}°C ({c_to_f(temp_c_low):.0f}°F)
