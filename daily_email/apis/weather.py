@@ -46,9 +46,16 @@ class WeatherData:
         self.temp_high = data["daily"]["temperature_2m_max"][0]
         self.temp_low = data["daily"]["temperature_2m_min"][0]
 
+    def __str__(self):
+        return f"Weather data for ({self.latitude}, {self.longitude})"
+
+    def __repr__(self):
+        return f"WeatherData({self.latitude}, {self.longitude})"
 
 if __name__ == "__main__":
     wd = WeatherData(49, 50)
+    print(wd)
+    print([wd])
     print(wd.weather)
     print(wd.temp_high)
     print(wd.temp_low)
