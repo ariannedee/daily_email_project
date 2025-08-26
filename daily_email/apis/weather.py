@@ -19,6 +19,7 @@ def get_weather_data(latitude, longitude):
     response = requests.get(WEATHER_URL, params, headers=headers)
 
     if response.status_code != 200:
+        # TODO: raise custom exception
         raise Exception(f"Error getting weather data from {WEATHER_URL} with {params}\n{response.url}")
 
     data = response.json()
@@ -27,4 +28,6 @@ def get_weather_data(latitude, longitude):
     temp_max = data["daily"]["temperature_2m_max"][0]
     temp_min = data["daily"]["temperature_2m_min"][0]
 
-    return weather, temp_max, temp_min
+    return weather, temp_max, temp_min  # TODO: classes
+
+# TODO: run file as a script to test it

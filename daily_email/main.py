@@ -28,6 +28,7 @@ errors = []
 weather, temp_c_high, temp_c_low = get_weather_data(env.float('LATITUDE', default=49), env.float('LONGITUDE', default=-123))
 
 # Content weather
+# TODO: handle exceptions
 content += f"""\nToday is going to be {weather}.
 
 High: {temp_c_high :.0f}°C ({c_to_f(temp_c_high):.0f}°F)
