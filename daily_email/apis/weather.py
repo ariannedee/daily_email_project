@@ -1,15 +1,18 @@
 import requests
 
+
 try:
     from .weather_codes import weather_from_code
 except ImportError:
     from weather_codes import weather_from_code
 
+try:
+    from .errors import APIError
+except ImportError:
+    from errors import APIError
 
-WEATHER_URL = "https://api.open-meteo.com/v1/forecast"
 
-class APIError(Exception):
-    pass
+WEATHER_URL = "https://api.open-meteo.com/v1/forecastsd"
 
 
 def get_weather_data(latitude, longitude):

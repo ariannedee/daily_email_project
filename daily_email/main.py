@@ -2,7 +2,8 @@ import sys
 
 from environs import Env
 
-from apis.weather import APIError, get_weather_data
+from apis import APIError
+from apis.weather import get_weather_data
 from send_email import send_text_email
 
 env = Env()
