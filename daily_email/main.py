@@ -3,7 +3,7 @@ import sys
 from environs import Env
 
 from apis import APIError
-from apis.weather import get_weather_data
+from apis.weather import WeatherData
 from send_email import send_text_email
 
 env = Env()
@@ -23,7 +23,7 @@ def main(name):
     lon = env.float('LONGITUDE', default=-123)
 
     try:
-        data = get_weather_data(lat, lon)
+        data = WeatherData(lat, lon)
     except APIError as e:
         errors.append(str(e))
     else:
