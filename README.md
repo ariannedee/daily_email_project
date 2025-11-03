@@ -8,11 +8,17 @@ Email contains
 
 ## Local project setup
 
-- Create a virtual environment with Python 3.8 and activate it
-- `pip install -r requirements.txt`
+- Fork the repository
+- Locally clone your forked repo
+- Choose a Python version
+  - Use Python 3.7-3.10 if you are planning to host on [PythonAnywhere](https://www.pythonanywhere.com/)
+- Create a virtual environment with that version in the project directory and activate it
+  - e.g. `python3.10 -m venv venv`, then `source venv/bin/activate` (on Unix)
+- Install requirements
+  - e.g. `pip install -r requirements.txt`
 - Create a copy of `.env-sample` and rename it to `.env`
 - Update values in `.env` for your email/password and coordinates
-  - Put data in this file that you don't want to make public. Don't commit it to git.
+  - Put data in this file that you don't want to make public. It will not be committed to git.
 
 ### Run the code
 `python daily_email/main.py {your_name}`
@@ -25,8 +31,9 @@ Email contains
 3. Navigate into the project folder `cd daily_email_project`
 
 ### Install project requirements
-4. Install the requirements `pip3.8 install --user -r requirements.txt`
+4. Install the requirements `pip3.X install --user -r requirements.txt`
    - You must use the `--user` flag to install your own modules in PythonAnywhere
+   - As of Nov 2025, PythonAnywhere supports Python 3.7 - 3.10. Replace X with your desired version.
 
 ### Set your secret variables
 5. From the homepage, go to the **Files**
@@ -40,7 +47,7 @@ Email contains
 11. Create a new task with details:
     - *Frequency*: Daily
     - *Time*: Current server time + 1 minute
-    - *Command*: python3.8 /home/<your_username>/daily_email_project/daily_email/main.py <Your name>
+    - *Command*: python3.X /home/<your_username>/daily_email_project/daily_email/main.py <Your name>
     - *Description*: Daily email
 12. Save the task
 13. See the console logs for print messages or errors
