@@ -1,19 +1,21 @@
 import requests
 
 
-def get_joke():
-    url = "https://api.jokes.one/jod"
+def get_fact():
+    url = "https://uselessfacts.jsph.pl/random.json?language=en"
 
     headers = {
         'content-type': 'application/json'
     }
 
     response = requests.request("GET", url, headers=headers)
+    response.raise_for_status()
 
-    joke = response.json()['contents']['jokes'][0]['joke']['text']
+    data = response.json()
+    joke = data['text']
 
     return joke.strip()
 
 
 if __name__ == '__main__':
-    print(get_joke())
+    print(get_fact())
