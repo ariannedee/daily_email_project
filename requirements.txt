@@ -1,6 +1,5 @@
 environs==9.5.0  # https://github.com/sloria/environs
 pytest           # https://docs.pytest.org/en/7.4.x/
 requests>=2.32   # https://docs.python-requests.org/en/latest/
-backports.zoneinfo;python_version<"3.9"
 
 marshmallow<4.0  # Needed for environs to work
