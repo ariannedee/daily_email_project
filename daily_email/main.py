@@ -5,8 +5,6 @@ import sys
 
 from send_email import send_html_email
 from apis.fun_fact import get_fact
-from apis.quote import get_quote
-from apis.sports import get_game_messages
 from apis.weather import get_weather_message
 from reminders import get_reminders_html
 
@@ -22,8 +20,6 @@ errors = {}
 api_content = [
     {'name': 'weather', 'heading': "Today's weather ⛅️", 'function': get_weather_message},
     {'name': 'fact', 'heading': "Fun fact 🤓", 'function': get_fact},
-    {'name': 'quote', 'heading': "Quote of the day 💬", 'function': get_quote},
-    {'name': 'nba', 'heading': "NBA 🏀", 'function': get_game_messages},
     {'name': 'reminders', 'heading': "Remember to ✅", 'function': get_reminders_html},
 ]
 
