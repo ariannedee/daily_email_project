@@ -4,8 +4,8 @@
 import sys
 
 from send_email import send_html_email
-from apis.fun_fact import get_fact
-from apis.weather import get_weather_message
+from content.fun_fact import get_fact
+from content.weather import get_weather_message
 from reminders import get_reminders_html
 
 args = sys.argv
