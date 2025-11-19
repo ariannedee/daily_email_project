@@ -1,9 +1,13 @@
 import sys
 from datetime import datetime
 
-from content.weather import temp_c_high, temp_c_low, weather, sunrise, sunset
+from environs import Env
+
+from content.weather import Forecast
 from send_email import send_text_email
 
+env = Env()
+env.read_env()
 
 def c_to_f(temp: float):
     return (temp * 9 / 5) + 32
@@ -16,14 +20,14 @@ if name_args:
 else:
     name = input("Name: ").strip().title()
 
+coords = env('LATITUDE'), env('LONGITUDE')
+weather = Forecast(coords, units="metric")
+
 content = f"""Good morning, {name}.
 
-Today is going to be {weather.lower()}.
-High temp: {temp_c_high :.0f}°C ({c_to_f(temp_c_high):.0f}°F)
-Low temp: {temp_c_low :.0f}°C ({c_to_f(temp_c_low):.0f}°F)
-
-Sunrise: {sunrise}
-Sunset: {sunset}
+Today is going to be {weather.weather.lower()}.
+High temp: {weather.temp_high :.0f}°C ({c_to_f(weather.temp_high):.0f}°F)
+Low temp: {weather.temp_low :.0f}°C ({c_to_f(weather.temp_low):.0f}°F)
 
 Remember to:
 """
