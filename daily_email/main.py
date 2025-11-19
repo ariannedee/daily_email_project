@@ -3,6 +3,7 @@ from datetime import datetime
 
 from environs import Env
 
+from content.ai import get_mantra
 from content.weather import Forecast
 from send_email import send_text_email
 
@@ -24,6 +25,9 @@ coords = env('LATITUDE'), env('LONGITUDE')
 weather = Forecast(coords, units="metric")
 
 content = f"""Good morning, {name}.
+
+Daily mantra ☀️
+{get_mantra()}
 
 Today is going to be {weather.weather.lower()}.
 High temp: {weather.temp_high :.0f}°C ({c_to_f(weather.temp_high):.0f}°F)
