@@ -1,10 +1,10 @@
-from send_email import send_text_email
-
 import sys
-from pprint import pprint
+from pprint import pprint as pretty_print
 
 import requests
 
+from helpers import c_to_f
+from send_email import send_text_email
 from weather_codes import weather_from_code
 
 DEBUG = False
@@ -25,12 +25,6 @@ headers = {
     'content-type': 'application/json'
 }
 
-def c_to_f(temp_c: float) -> float:
-    return (temp_c * 9 / 5) + 32
-
-assert c_to_f(0) == 32, f"Expected 32 but got {c_to_f(0)}"
-assert round(c_to_f(36.5)) == 98, f"Expected 98 but got {round(c_to_f(36.5))}"
-
 if args:
     name = " ".join(args)
 else:
@@ -42,7 +36,7 @@ data = response.json()
 
 if DEBUG:
     print(response.url)
-    pprint(data)
+    pretty_print(data)
 
 today = data['daily']
 
