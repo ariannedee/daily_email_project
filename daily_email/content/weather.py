@@ -28,3 +28,8 @@ temp_high = today['temperature_2m_max'][0]
 temp_low = today['temperature_2m_min'][0]
 weathercode = today['weathercode'][0]
 weather = weather_from_code.get(weathercode, f"Code {weathercode} not found")
+
+if __name__ == "__main__":
+    print(temp_high)
+    print(temp_low)
+    print(weather)
