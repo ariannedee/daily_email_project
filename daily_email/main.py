@@ -1,6 +1,6 @@
 import sys
 
-from content.weather import temp_high, temp_low, weather
+from content.weather import Weather
 from helpers import c_to_f
 from send_email import send_text_email
 
@@ -11,11 +11,14 @@ if args:
 else:
     name = input("Name: ")
 
+w = Weather(lat=49.2827, lon=-123.1207, tz="America/Los_Angeles")
+w.gather_data()
+
 content = f"""Good morning, {name.strip().title()}!
 
-Today there will be {weather.lower()}.
-High: {temp_high :.0f}°C ({c_to_f(temp_high):.0f}°F)
-Low: {temp_low :.0f}°C ({c_to_f(temp_low):.0f}°F)
+Today there will be {w.weather.lower()}.
+High: {w.temp_high :.0f}°C ({c_to_f(w.temp_high):.0f}°F)
+Low: {w.temp_low :.0f}°C ({c_to_f(w.temp_low):.0f}°F)
 
 Daily mantra:
 {'Seize the day!'}
