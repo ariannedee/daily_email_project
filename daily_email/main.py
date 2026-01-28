@@ -1,6 +1,6 @@
 import sys
 
-from content.weather import Weather
+from content import Weather
 from helpers import c_to_f
 from send_email import send_text_email
 
