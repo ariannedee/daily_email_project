@@ -1,10 +1,9 @@
 import sys
 
-from apis.weather import (
-    temp_c_high as temp_hi,
-    temp_c_low as temp_lo,
-    weather,
-)
+import apis
+
+apis.init_function()
+data = apis.get_weather_data()
 
 if len(sys.argv) > 1:
     name = ' '.join(sys.argv[1:]).strip().title()
@@ -21,9 +20,9 @@ with open("todos.txt") as file:
     todos = list(file.readlines())
 
 content = f"""Good morning, {name}!
-Today is going to be {weather.lower()}.
-High: {temp_hi}°C ({c_to_f(temp_hi):.0f}°F)
-Low: {temp_lo}°C ({c_to_f(temp_lo):.0f}°F)
+Today is going to be {apis.weather.lower()}.
+High: {apis.temp_c_high}°C ({c_to_f(apis.temp_c_high):.0f}°F)
+Low: {apis.temp_c_low}°C ({c_to_f(apis.temp_c_low):.0f}°F)
 
 Remember to:"""
 
