@@ -2,6 +2,7 @@ import sys
 
 from environs import Env
 
+from apis.ai_mantra import mantra
 from apis.weather import Weather
 
 
@@ -28,6 +29,8 @@ content = f"""Good morning, {name}!
 Today is going to be {today_weather.condition.lower()}.
 High: {today_weather.temp_c_high}°C ({c_to_f(today_weather.temp_c_high):.0f}°F)
 Low: {today_weather.temp_c_low}°C ({c_to_f(today_weather.temp_c_low):.0f}°F)
+
+{mantra}
 
 Remember to:"""
 
