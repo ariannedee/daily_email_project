@@ -1,7 +1,6 @@
 import sys
 
-from apis.mantra import daily_mantra
-from apis.weather import temp_c_high, temp_c_low, weather
+from apis import daily_mantra, Weather
 from send_email import send_text_email
 
 
@@ -14,13 +13,15 @@ if args:
 else:
     name = input("Name: ").strip()
 
+weather = Weather(49.2497, -123.1193)
+
 content = f"""Good morning, {name.title()}!
 
 {daily_mantra}
 
-Today is going to be {weather.lower()}.
-High: {temp_c_high :.0f}°C ({c_to_f(temp_c_high):.0f}°F)
-Low: {temp_c_low :.0f}°C ({c_to_f(temp_c_low):.0f}°F)
+Today is going to be {weather.condition.lower()}.
+High: {weather.temp_c_high :.0f}°C ({c_to_f(weather.temp_c_high):.0f}°F)
+Low: {weather.temp_c_low :.0f}°C ({c_to_f(weather.temp_c_low):.0f}°F)
 
 Remember to:
 """
