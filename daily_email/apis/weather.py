@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from pprint import pprint
 
 import requests
@@ -11,17 +12,27 @@ DEBUG = False
 
 base_url = 'https://api.open-meteo.com/v1/forecast'
 
+# Dataclasses allow for quick class creation
+# Automatically creates __init__, __eq__, __str__, __repr__
+@dataclass
+class WeatherData:
+    temp_high: float
+    temp_low: float
+    condition: str
+    units: str = "C"
+
+
 class Weather:
     def __init__(self, latitude, longitude, timezone='America/Los_Angeles'):
         self.lat = latitude
         self.lon = longitude
         self.tz = timezone
 
-        self.temp_c_high = None
-        self.temp_c_low = None
-        self.condition = None
-        
-        self._call_api()
+        data = self._call_api()
+
+        self.condition = data.condition
+        self.temp_c_high = data.temp_high
+        self.temp_c_low = data.temp_low
 
     def get_params(self):
         params = {
@@ -47,10 +58,17 @@ class Weather:
             pprint(data)
 
         today = data['daily']
-        self.temp_c_high = today['temperature_2m_max'][0]
-        self.temp_c_low = today['temperature_2m_min'][0]
+        temp_c_high = today['temperature_2m_max'][0]
+        temp_c_low = today['temperature_2m_min'][0]
         weathercode = today['weathercode'][0]
-        self.condition = weather_from_code.get(weathercode, f"[unknown weather for code {weathercode}]")
+        condition = weather_from_code.get(weathercode, f"[unknown weather for code {weathercode}]")
+
+        return WeatherData(
+            temp_high=temp_c_high,
+            temp_low=temp_c_low,
+            condition=condition,
+            units="C"
+        )
 
     def __str__(self):
         return f"Weather object for ({self.lat}, {self.lon})"
