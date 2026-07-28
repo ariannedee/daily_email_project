@@ -1,5 +1,6 @@
 import sys
 
+from apis.mantra import daily_mantra
 from apis.weather import temp_c_high, temp_c_low, weather
 from send_email import send_text_email
 
@@ -14,6 +15,8 @@ else:
     name = input("Name: ").strip()
 
 content = f"""Good morning, {name.title()}!
+
+{daily_mantra}
 
 Today is going to be {weather.lower()}.
 High: {temp_c_high :.0f}°C ({c_to_f(temp_c_high):.0f}°F)
